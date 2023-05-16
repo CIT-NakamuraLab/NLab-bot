@@ -1,9 +1,10 @@
 version: '3'
 services:
-  nnlab-bot:
+  nlab-bot:
     build: 
       context: .
       dockerfile: Dockerfile
+    restart: unless-stopped
     volumes:
       - ./src/:/app/src/
     env_file:
