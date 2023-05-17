@@ -16,7 +16,7 @@ const getUserData = async(userId: string) => {
   })
 
   const result = {
-    user_name: response.user.profile.display_name ? response.user.profile.display_name : '表示名未設定',
+    user_name: response.user.profile.display_name ? response.user.profile.display_name : response.user.profile.real_name,
     image: response.user.profile.image_512
   }
 
