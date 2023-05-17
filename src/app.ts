@@ -16,7 +16,7 @@ const getUserData = async(userId: string) => {
   })
 
   const result = {
-    user_name: response.user.profile.real_name,
+    user_name: response.user.profile.display_name ? response.user.profile.display_name : '表示名未設定',
     image: response.user.profile.image_512
   }
 
@@ -28,7 +28,7 @@ app.shortcut("key-pickup", async({ ack, body, client }) => {
   const data = await getUserData(body.user.id)
   await client.chat.postMessage({
     channel: process.env.SLACK_POST_CHANNEL_ID,
-    text: "鍵の持ち込み",
+    text: `${data.user_name}が鍵を借りました`,
     blocks: getKeyPickupBlock(data.user_name, data.image)
   });
 });
@@ -38,7 +38,7 @@ app.shortcut("key-return", async({ ack, body, client }) => {
   const data = await getUserData(body.user.id)
   await client.chat.postMessage({
     channel: process.env.SLACK_POST_CHANNEL_ID,
-    text: "鍵の返却",
+    text: `${data.user_name}が鍵を返却しました`,
     blocks: getKeyReturnBlock(data.user_name, data.image)
   });
 });
@@ -48,7 +48,7 @@ app.action<BlockAction>("key-pickup", async ({ ack, client, body }) => {
   const data = await getUserData(body.user.id)
   await client.chat.postMessage({
     channel: process.env.SLACK_POST_CHANNEL_ID,
-    text: "鍵の持ち込み",
+    text: `${data.user_name}が鍵を借りました`,
     blocks: getKeyPickupBlock(data.user_name, data.image)
   });
 });
@@ -58,7 +58,7 @@ app.action<BlockAction>("key-return", async ({ ack, client, body }) => {
   const data = await getUserData(body.user.id)
   await client.chat.postMessage({
     channel: process.env.SLACK_POST_CHANNEL_ID,
-    text: "鍵の返却",
+    text: `${data.user_name}が鍵を返却しました`,
     blocks: getKeyReturnBlock(data.user_name, data.image)
   });
 });
