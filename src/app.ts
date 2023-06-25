@@ -15,7 +15,6 @@ app.shortcut('key-return', keyReturnAction)
 
 app.action<BlockAction>('key-pickup', keyPickupAction)
 app.action<BlockAction>('key-return', keyReturnAction)
-
 ;(async () => {
   await app.start()
 
