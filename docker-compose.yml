@@ -7,5 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./src/:/app/src/
+    environment:
+      TZ: Asia/Tokyo
     env_file:
       - .env
